@@ -11,4 +11,3 @@ class User(db.Model,UserMixin):
     username = db.Column(db.String, nullable=False)
     email = db.Column(db.String(64),index=True)
     password = db.Column(db.String)
-    membership = db.Column(db.String, default='Free')
