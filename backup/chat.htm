@@ -1,0 +1,53 @@
+{% extends 'base.htm' %}
+{% block title %}
+    Chat with {{user.username}}
+{% endblock %}
+{% block content %}
+<section><center>
+  <a href="/vc/{{user.username}}">Call</a></center>
+    <div class="flex flex-col px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <a class="flex items-center mb-6 text-2xl font-semibold text-gray-900 -white">
+           <img src="/static/users/{{user.img}}" class="w-10 mr-2 h-10 rounded-full mt-2" alt=""> {{user.username}}
+        </a>
+        <div class="lg:-mb-16 message_holder">
+            {% for msg in (current_user.msg_sender + current_user.msg_receiver)|sort(attribute='date_sent') %}
+                {% if user.username == msg.receiver or user.username == msg.sender %}
+                   <span class="font-semibold bg-white mb-8 block w-auto rounded-lg text-lg py-2 px-6"> <a class='hover:underline' href="/users/{{msg.sender}}">{% if msg.sender == current_user.username %}
+                    {{msg.sender}} {% else %} {{msg.sender}}
+                   {% endif %}</a> <br> <span class="font-normal">{{msg.message}}</span><br></span>
+                {% endif %}
+        {% endfor %}
+        </div>
+        <div class="w-full p-6 rounded-lg md:mt-0 sm:max-w-md sm:p-8">
+            <form class="lg:mt-5 md:space-y-5" method="POST" action="/chat/{{user.username}}" enctype="multipart/form-data">
+                <div>
+    <input type="file" name="" id="file" class="hidden">
+                    <input type="text" class="bg-gray-50 mb-2 lg:-ml-8 lg:w-96 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 p-2.5 gray-700 -gr  ay-600 -white :ring-blue-500 :border-blue-500 msg_holder" placeholder="message">
+                </div> 
+                <button type="submit" class="self-center px-8 py-3 font-semibold rounded-xl hover:rounded hover:bg-blue-900 bg-blue-600 text-gray-50 transition-all 2s ml-8 cursor-pointer -ml-2">Send</button>
+            </form>
+        </div>
+    </div>
+  </section>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js" integrity="sha384-/KNQL8Nu5gCHLqwqfQjA689Hhoqgi2S84SNUxC3roTe4EhJ9AfLkp8QiQcU8AMzI" crossorigin="anonymous"></script>    <script type="text/javascript">
+      var socket = io.connect('http://127.0.0.1:5000');
+      let msg_h = document.getElementsByClassName('msg_holder')
+
+      socket.on( 'connect', function() {
+       console.log('user connect')
+        var form = $( 'form' ).on( 'submit', function( e ) {
+          socket.emit( 'my event', {
+            sender : '{{current_user.username}}',
+            receiver : '{{user.username}}' ,
+            msg: $('input.msg_holder').val(),
+            file: $('input#file').val(),
+          } )
+        } )
+        socket.on( 'my response', function( msg ) {
+            console.log( msg )
+            $( 'div.message_holder' ).append('<span class="font-semibold bg-white mb-8 block w-auto rounded-lg text-lg py-2 px-6">' + msg['sender'] +'<br> <span class="font-normal">' +msg['msg'] +'</span><br></span>')
+          })
+      } )
+      </script>
+      {% endblock %}

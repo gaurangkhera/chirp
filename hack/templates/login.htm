@@ -1,0 +1,22 @@
+{% extends "base.htm" %}
+{% block title %}
+  Log in
+{% endblock title %}
+{% block content %}
+<div class="flex flex-col justify-center items-center h-screen  ">
+  <div class="h-[420px] w-[500px] rounded-[40px] bg-white flex flex-col justify-center items-center">
+      <div class="text-2xl text-black font-bold " style="font-family: 'Red Hat Display', sans-serif;">Chirp.</div><br>
+     <div class="text-2xl text-black " style="font-family: 'Red Hat Display', sans-serif;">Log in to your account.</div><br>
+     <form class="flex flex-col max-w-md space-y-5" action="/login" method="post">
+      {{form.hidden_tag()}}
+     {{form.csrf_token}}
+      {{form.email(class='flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium placeholder:font-normal', placeholder='Email or username')}}
+        {{form.password(class='flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium md:w-96 placeholder:font-normal', placeholder='Password')}}
+        <h1>{{mess}}  </h1>
+      {{form.submit(class='flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium border-black bg-black text-white cursor-pointer')}}
+       <h1 class="p-2.5">Don't have an account?<a href="/reg"> <span class="underline underline-offset-4 font-bold">Create one.</span></h1></a>
+      </form>
+</div>
+</div>
+
+{% endblock %}

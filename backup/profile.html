@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}
+    {{user.username}}'s profile
+{% endblock %}
+{% block content %}
+<br>
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti vero ipsum in similique, impedit corrupti necessitatibus sit cupiditate quas obcaecati ipsa sunt non? Enim facere facilis blanditiis, cumque sequi explicabo deleniti, dicta ipsa assumenda id saepe amet? Repellendus possimus ratione debitis deleniti amet ducimus officiis ad minima, exercitationem deserunt iusto ab optio architecto impedit quidem qui perferendis repudiandae sunt nam consectetur quisquam? Assumenda facere asperiores ipsum praesentium sequi illo, possimus beatae obcaecati cupiditate aliquid fugit iusto dolore officiis eum molestias quo harum vel sunt enim error consectetur! Cum, veritatis? Saepe facilis nulla perferendis? Iure, animi iusto accusantium neque ipsum dolorum maiores pariatur nemo sunt dolores vero corporis, itaque, architecto sint quia temporibus enim aliquid numquam exercitationem obcaecati sapiente aperiam non! Molestiae debitis consequatur minima dignissimos suscipit doloremque quae doloribus, exercitationem tenetur quia nam itaque repellendus aspernatur accusantium in vero asperiores, fugiat quidem ullam ut nesciunt velit? Non quidem accusantium illum cumque dolore, deserunt doloribus officia voluptatum nesciunt recusandae dolorum nisi, ipsam odit culpa, soluta ratione! Neque omnis a dolores! Sunt magnam cumque, quas expedita rem error, id dolore saepe nemo mollitia sapiente dolorum odio cum eaque? Accusantium, dolorum et perferendis tempora adipisci ab asperiores similique autem impedit nam corrupti repellat harum suscipit sapiente nostrum quas commodi itaque non in fuga! Dignissimos quidem quos blanditiis eveniet sed soluta quae sapiente facere repellendus ad voluptatum delectus modi, unde deserunt perferendis illo provident facilis perspiciatis sunt rerum eos, ut est dolores odit? Fuga harum qui repellendus! Temporibus maiores doloribus omnis libero quisquam accusantium quaerat et aliquam quam dolor voluptate harum quos nemo aperiam, dolores odit reprehenderit nesciunt alias eius illo? Eius rem qui dolore corporis debitis commodi, at a porro veritatis nostrum nulla eligendi perferendis distinctio nobis nesciunt ad nisi, quae ipsam, consequatur facere! Iste magnam assumenda sequi est impedit dolore itaque ullam! Quibusdam nisi fuga odit atque corrupti repellat corporis consectetur. Praesentium, voluptates voluptatum aliquid, blanditiis fugit pariatur tempora est consequatur natus vero inventore sed, beatae facilis repellendus cum dolorum quisquam hic eius accusamus soluta optio exercitationem eos labore. Laudantium ab velit unde quisquam, sapiente debitis!
+    <center>
+        <img src="/static/users/{{user.img}}" alt="" srcset="" width="150" height="150" class="rounded-pill">
+        <h1>{{user.username}}</h1>
+        <h3>{{user.email}}</h3>
+        {% if not follow and current_user.username != user.username%}
+            <a href="/follow/{{user.username}}" class="btn btn-primary">Follow {{user.username}}</a>
+        {%elif current_user.username == user.username%}
+
+        {%else%}
+        <a href="/unfollow/{{user.username}}" class="btn btn-danger">Unfollow {{user.username}}</a>
+
+        {% endif %}
+        <h3>Followers</h3>
+        {% for follower in user.followers %}
+            <a href="/users/{{follower.follower_id}}">{{follower.follower_id}}</a><br>
+        {% endfor %}
+        <h3>Following</h3>
+        {% for following_user in user.followed %}
+            <a href="/users/{{following_user.followed_id}}">{{following_user.followed_id}}</a>
+        {% endfor %}
+    </center>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.htm' %}
+{% block title %}
+    Home
+{% endblock %}
+{% block content %}
+<section class="p-6 bg-gray-100 text-gray-800 mb-16 lg:h-full">
+	<div class="container grid gap-6 mx-auto text-center lg:grid-cols-2 xl:grid-cols-5 h-4/6 lg:h-full">
+		<div class="px-6 py-16 rounded-md sm:px-12 md:px-16 xl:col-span-2 h-96">
+			<div>
+				<h1 class="text-5xl font-extrabold text-gray-900 mb-4">Get yourself <span class="text-blue-600 text-5xl font-extrabold">heard</span></h1><h1 class="text-5xl font-extrabold text-gray-90">with Flitter.</h1>
+			</div>
+			<p class="my-8">
+				<span class="font-medium text-gray-900">A fully open-source, transparent and decentralized social network.</span>
+			</p>
+            {% if current_user.is_authenticated %}
+			<a href="/post" class="self-center px-8 py-3 font-semibold rounded-xl hover:rounded hover:bg-blue-900 bg-blue-600 text-gray-50 transition-all 2s">Make a post</a>
+			{% else %}
+			<a href="/reg" class="self-center px-8 py-3 font-semibold rounded-xl hover:rounded hover:bg-blue-900 bg-blue-600 text-gray-50 transition-all 2s">Sign up</a>
+			{% endif %}
+		</div>
+		<img src="{{url_for('static', filename='imgs/hero.png')}}" alt="" class="object-cover w-full h-96 rounded-md xl:col-span-3">
+	</div>
+</section>
+{% endblock %}

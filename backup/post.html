@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}
+    Post on FlaskBook
+{% endblock %}
+{% block content %} 
+<center><h1>Make a post on FlaskBook</h1></center>
+
+<form action="/post" method="post" class="container-fluid" enctype="multipart/form-data">
+  {{form.hidden_tag()}}
+    {{form.csrf_token}}
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Post title</label>
+      {{form.title(class='form-control')}}
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Image for your post</label>
+      {{form.img(class='form-control')}}
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Post content</label>
+      {{form.content(class='form-control')}}
+    </div>
+    {{form.submit(class='btn btn-primary rounded-pill')}}
+  </form>
+  <center class="text-danger font-bold">{{mess}}</center>
+{% endblock %}

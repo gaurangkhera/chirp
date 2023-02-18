@@ -1,0 +1,29 @@
+{% extends 'base.htm' %}
+{% block title %}
+    Direct Messages
+{% endblock %}
+{% block content %}
+<div class="flex flex-col h-full p-3 w-full text-center bg-gray-50 text-gray-800 rounded-lg">
+	<div class="space-y-3">
+		<div class="flex items-center justify-between">
+			<h2 class="font-bold">DMs</h2>
+		</div>
+		<div class="flex-1">
+			<ul class="pt-2 pb-4 space-y-1 text-sm">
+				{% for follower in current_user.followed %}
+                <li class="rounded-sm">
+					<a rel="noopener noreferrer" href="/chat/{{follower.followed_id}}" class="flex items-center p-2 space-x-3 rounded-md">
+						<span>{{follower.followed_id}}</span>
+					</a>
+				</li>
+                {% endfor %}
+				{% for following in current_user.followers %}
+				<li class="rounded-sm">
+					<a rel="noopener noreferrer" href="/chat/{{following.follower_id}}" class="flex items-center p-2 space-x-3 rounded-md">
+						<span>{{following.follower_id}}</span>
+					</a>
+				</li>
+				{% endfor %}
+	</div>
+</div>
+{% endblock %}

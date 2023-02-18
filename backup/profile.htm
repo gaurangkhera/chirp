@@ -1,0 +1,51 @@
+{% extends 'base.htm' %}
+{% block title %}
+    {{user.username}}
+{% endblock %}
+{% block content %}
+<div class="p-6 sm:p-12  text-gray-800">
+    <a onclick=go_back() class="self-center px-8 py-3 font-semibold rounded-xl hover:rounded hover:bg-blue-900 bg-blue-600 text-gray-50 transition-all 2s">Back</a>
+	<div class="flex flex-col space-y-4 mt-8 md:space-y-0 md:space-x-6 md:flex-row">
+		<img src="/static/users/{{user.img}}" alt="" class="self-center flex-shrink-0 w-24 h-24 border rounded-full md:justify-self-start bg-gray-500 border-gray-300">
+		<div class="flex flex-col">
+			<h4 class="text-lg font-semibold text-center md:text-left">{{user.username}}</h4>
+			<p class="text-gray-600">{{user.about}}</p>
+            {% if current_user.is_authenticated %}
+            {% if not follow %}
+            <a href="/follow/{{user.username}}" class="self-center px-8 py-3 font-semibold rounded-xl hover:rounded hover:bg-blue-900 bg-blue-600 text-gray-50 transition-all 2s mt-4">Follow</a>
+            {% else %}
+            <a href="/unfollow/{{user.username}}" class="self-center px-8 py-3 font-semibold rounded-xl hover:rounded hover:bg-red-900 bg-red-600 text-gray-50 transition-all 2s mt-4">Unfollow</a>
+            {% endif %}
+            {% endif %}
+
+		</div>
+	</div>
+    <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
+            <li class="mr-2" role="presentation">
+                <button class="inline-block p-4 border-b-2" id="profile-tab" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Followers ({{user.followers|length}})</button>
+            </li>
+            <li class="mr-2" role="presentation">
+                <button class="inline-block p-4 border-b-2 hover:text-black" id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Following ({{user.followed|length}})</button>
+            </li>
+        </ul>
+    </div>
+    <div id="myTabContent">
+        <div class="hidden p-4 rounded-lg -gray-800" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <p class="text-sm text-gray-600 -400">{% if user.followers|length > 0 %}
+                {% for name in user.followers %}
+                    <a href="/users/{{name.follower_id}}" class="hover:underline font-semibold text-lg">{{name.follower_id}}</a><br>
+                {% endfor %}
+            {% endif %}</p>
+        </div>
+        <div class="hidden p-4 rounded-lg -gray-800" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+            <p class="text-sm text-gray-500 -400">{% if user.followed|length > 0 %}
+                {% for name in user.followed %}
+                    <a href="/users/{{name.followed_id}}" class="hover:underline font-semibold text-lg">{{name.followed_id}}</a><br>
+                {% endfor %}
+            {% endif %}</p>
+        </div>
+    
+</div>
+
+{% endblock %}

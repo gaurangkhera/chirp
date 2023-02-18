@@ -1,0 +1,27 @@
+{% extends 'base.htm' %}
+{% block title %}
+    View posts
+{% endblock %}
+{% block content %}
+<h1 class="text-2xl font-bold text-center">Recent</h1>
+<div class="max-w-screen-xl p-5 mx-auto bg-gray-100 text-gray-800">
+    <div class="grid grid-cols-1 gap-5 lg:grid-cols-3 sm:grid-cols-2">
+
+    {% for post in posts %}
+            <div class="relative hover:-translate-y-1 transition-all 2s hover:drop-shadow-2xl flex items-end justify-start w-full text-left bg-center bg-cover h-96 bg-gray-500 mx-auto" style="background-image: url('/static/post_imgs/{{post.img}}');">
+                <div class="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-b via-transparent from-gray-900 to-gray-900"></div>
+                <div class="absolute top-0 left-0 right-0 flex items-center justify-between mx-5 mt-3">
+                    <a rel="noopener noreferrer" href="/posts/{{post.id}}" class="px-3 py-2 text-xs font-bold tracking-wider text-xl uppercase text-gray-100 bgundefined hover:underline">{{post.title}}</a>
+                    <div class="flex flex-col justify-start text-center text-gray-100">
+                        <span class="text-lg font-semibold leading-none tracking-wide">{{post.date_posted[0: 10]}}</span>
+                    </div>
+                </div>
+                <h2 class="z-10 p-5">
+                    <a rel="noopener noreferrer" href="/posts/{{post.id}}" class="font-medium text-md hover:underline text-gray-100">{{post.content[0: 25]}}...</a><br>
+                    <a rel="noopener noreferrer" href="/users/{{post.poster}}" class="font-light text-md hover:underline text-gray-100">{{post.poster}}</a>
+                </h2>
+            </div>
+    {% endfor %}
+</div>
+</div>
+{% endblock %}

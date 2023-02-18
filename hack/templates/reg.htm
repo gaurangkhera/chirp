@@ -1,0 +1,22 @@
+{% extends "base.htm" %}
+{% block title %}
+  Get started
+{% endblock title %}
+{% block content %}
+<div class="flex flex-col justify-center items-center h-screen  ">
+  <div class="h-[420px] w-[500px]  rounded-[40px] bg-white flex flex-col justify-center items-center">
+      <div class="text-2xl text-black font-bold " style="font-family: 'Red Hat Display', sans-serif;">Chirp </div><br>
+     <div class="text-2xl text-black " style="font-family: 'Red Hat Display', sans-serif;">Register For Your New Chirp Account Here</div><br>
+     <div class="flex flex-col max-w-md space-y-5">
+      <input type="text" placeholder="Username"
+        class="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium placeholder:font-normal" />
+        <input type="text" placeholder="Password"
+        class="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium placeholder:font-normal" />
+      <button class="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium border-black bg-black text-white">Confirm
+       </button>
+       <h1 class="p-2.5">Already Have A Chirp Account ?  <a href="login.html"> <span class="underline underline-offset-4 font-bold">Get Chirrpin' Here</span></h1></a>
+  </div>
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}
+    Home
+{% endblock %}
+{% block content %}
+    <center>
+        <h1>All posts</h1>
+        {% for post  in all_posts %}
+            <img src="/hack/static/post_imgs/{{curren">
+            {{post.title}}<br>
+            {{post.content}}<br>
+            {{post.poster}}<br>
+        {% endfor %}
+    </center>
+{% endblock %}

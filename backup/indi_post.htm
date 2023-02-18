@@ -1,0 +1,16 @@
+{% extends 'base.htm' %}
+{% block title %}
+    {{post.title}}
+{% endblock %}
+{% block content %}
+<div class="p-6 sm:p-12 bg-gray-50 text-gray-800 mb-16">
+    <a onclick="go_back()" class="self-center px-8 py-3 font-semibold rounded-xl hover:rounded hover:bg-blue-900 bg-blue-600 text-gray-50 transition-all 2s hover:cursor-pointer">Back</a>
+	<div class="flex flex-col space-y-4 md:space-y-0 md:space-x-6 md:flex-row lg:mt-16">
+		<img src="/static/post_imgs/{{post.img}}" alt="" class="self-center flex-shrink-0 w-48 -mt-32 lg:w-96 lg:h-96 lg:-mt-16 mt-16 mr-8 h-48 border rounded-full md:justify-self-start bg-gray-500 border-gray-300">
+		<div class="flex flex-col ">
+			<h4 class="text-lg font-semibold text-center md:text-left">{{post.title}}</h4>
+			<p class="text-gray-600">{{post.content}}</p>
+		</div>
+	</div>
+</div>
+{% endblock %}
